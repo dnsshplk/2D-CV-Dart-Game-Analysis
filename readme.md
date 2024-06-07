@@ -32,9 +32,9 @@ When we have the center of a board and the tips of datrs pieces, we can easily c
 
 ## Plain Results
 The algorithm correcly identified scores of 17 out of 18 pieces. And correctly indentified the winned in all 3 games.
-![alt text](results\result_IMG_20240510_172748.jpg)
-![alt text](results\result_IMG_20240510_172837.jpg)
-![alt text](results\result_IMG_20240510_172930.jpg)
+![alt text](https://github.com/dnsshplk/Task3_int/blob/47e9b04c37f4161e4d6257f4176bd820438ec736/results/result_IMG_20240510_172748.jpg)
+![alt text](https://github.com/dnsshplk/Task3_int/blob/47e9b04c37f4161e4d6257f4176bd820438ec736/results/result_IMG_20240510_172837.jpg)
+![alt text](https://github.com/dnsshplk/Task3_int/blob/47e9b04c37f4161e4d6257f4176bd820438ec736/results/result_IMG_20240510_172930.jpg)
 
 
 ## On Distortion
