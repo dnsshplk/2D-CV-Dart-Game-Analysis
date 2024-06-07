@@ -1,10 +1,10 @@
 Task 3 - 2D computer vision - Darts game analysis
 
-The backbone of the solution is to find the center of a dartboard and tips of darts. 
-
 # Algorithm
+The main idea of the algorithm is to find the center of the dartboard and the tips of darts pieces. Then after calculating the respective distances we can determine ho many points each dart piece scores
+
 For for this we need to 
-1. Crop the board
+1. Crop the board and find its center
 2. Find positions of the dart tips
 
 ## Crop the board
@@ -31,7 +31,11 @@ When we have the center of a board and the tips of datrs pieces, we can easily c
 # Results Analysis
 
 ## Plain Results
-The algorithm correcly indentified scores of 17 out of 18 pieces. And correctly indentified the winned in all 3 games.
+The algorithm correcly identified scores of 17 out of 18 pieces. And correctly indentified the winned in all 3 games.
+![alt text](results\result_IMG_20240510_172748.jpg)
+![alt text](results\result_IMG_20240510_172837.jpg)
+![alt text](results\result_IMG_20240510_172930.jpg)
+
 
 ## On Distortion
 The only place, where the algotithm takes into account distortion of an image, is when a little offset +10 is added to the center of cropped board. Experiments showed that this is more robust than projecting ellipse (the actual shape of a board) into the cirle and then cropping it (it is much more expensive and does not impove results). + the distortion itself is pretty small (<2% difference on y-axis and even less on x-axis)

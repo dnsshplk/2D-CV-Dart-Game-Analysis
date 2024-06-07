@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 
+import os
 
 def cropBoard(frame_orig):
     frame = frame_orig.copy()
@@ -214,21 +215,46 @@ def process_image(img_path):
 
 
 def main():
-    path1 = r'imgs/IMG_20240510_172748.jpg'
-    path2 = r'imgs/IMG_20240510_172837.jpg'
-    path3 = r'imgs/IMG_20240510_172930.jpg'
+    input_folder = 'imgs'
+    output_folder = 'results'
+    for img_name in os.listdir(input_folder):
+        path = os.path.join(input_folder, img_name)
 
-    img, draw_image, scores_dict = process_image(path3)
+        img, analysed_image, scores_dict = process_image(path)
 
-    cv2.imshow('Original', img)
-    cv2.imshow('Points', draw_image)
+        cv2.imshow('Original', img)
+        cv2.imshow('Points', analysed_image)
 
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
-    cv2.waitKey(1)
-    cv2.waitKey(1)
-    cv2.waitKey(1)
-    cv2.waitKey(1)
+        stacked_image = np.concatenate((img, analysed_image), axis = 1)
+
+        output_path = os.path.join(output_folder, f'result_{img_name}')
+        cv2.imwrite(output_path, stacked_image)
+
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+        cv2.waitKey(1)
+        cv2.waitKey(1)
+        cv2.waitKey(1)
+        cv2.waitKey(1)
+    
+    # path1 = r'imgs/IMG_20240510_172748.jpg'
+    # path2 = r'imgs/IMG_20240510_172837.jpg'
+    # path3 = r'imgs/IMG_20240510_172930.jpg'
+
+    # img, analysed_image, scores_dict = process_image(path3)
+
+    # cv2.imshow('Original', img)
+    # cv2.imshow('Points', analysed_image)
+
+    # stacked_image = np.concatenate((img, analysed_image), axos = 1)
+    # cv2.imwrite(f'result_{}')
+
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
+    # cv2.waitKey(1)
+    # cv2.waitKey(1)
+    # cv2.waitKey(1)
+    # cv2.waitKey(1)
 
 
 if __name__ == '__main__':
