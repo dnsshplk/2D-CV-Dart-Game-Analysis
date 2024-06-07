@@ -20,10 +20,12 @@ To find dart tips the following algorithm has been created:
 1. Find the darts themselves. It can be done easily because their color is well distinguished from the board
 2. Sometimes 2 darts of one color overlap and share same contour. So before finding the actual contours, we need to erode our masks
 3. After erosion, calculate contours of individual dart pieces
+![alt text](![alt text](https://github.com/dnsshplk/Task3_int/blob/47e9b04c37f4161e4d6257f4176bd820438ec736/results/result_IMG_20240510_172748.jpg))
+
 4. We need to find the tips of darts, but so far we have only contours of their tails. To find tip, fit an ellipse to a contour, get ellipse center and adjust ut based on the elipse orientation and contours area. 
-- If an area of a contour is small, we are looking at the dart right from behind and we do not need to adjust the center. 
-- If an area of a contour is medium, we found 2 of 4 tailwings of a dart and need to move along the smaller radius upward
-- If an area of a contour is large, we found nearly whole dart piece and need to move along the bigger radius upward
+    - If an area of a contour is small, we are looking at the dart right from behind and we do not need to adjust the center. 
+    - If an area of a contour is medium, we found 2 of 4 tailwings of a dart and need to move along the smaller radius upward
+    - If an area of a contour is large, we found nearly whole dart piece and need to move along the bigger radius upward
 
 ## Calculate scores
 When we have the center of a board and the tips of datrs pieces, we can easily calculate the scores of each team and determine the winned.

@@ -61,7 +61,8 @@ def move_ellipse_center(ellipse, area):
 
 
 def getDartPoints(image, draw = False):
-    # draw_image = image.copy()
+    draw_image = image.copy()
+    draw = True
     # Convert the image to the HSV color space
     hsv_image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 
@@ -94,8 +95,8 @@ def getDartPoints(image, draw = False):
     contours_green = [cnt for cnt in contours_green if cv2.contourArea(cnt) >= 125]
 
     # Create copies of the masks to draw contours on
-    # mask_red_with_contours = cv2.cvtColor(mask_red, cv2.COLOR_GRAY2BGR)
-    # mask_green_with_contours = cv2.cvtColor(mask_green, cv2.COLOR_GRAY2BGR)
+    mask_red_with_contours = cv2.cvtColor(mask_red, cv2.COLOR_GRAY2BGR)
+    mask_green_with_contours = cv2.cvtColor(mask_green, cv2.COLOR_GRAY2BGR)
 
     green_points = []
     red_points = []
@@ -107,11 +108,11 @@ def getDartPoints(image, draw = False):
         area = cv2.contourArea(contour)
         center = move_ellipse_center(ellipse, area)
         red_points.append(center)
-        # if draw:
-        #     cv2.drawContours(mask_red_with_contours, [contour], -1, (0, 0, 255), 2)
-        #     cv2.ellipse(mask_red_with_contours, ellipse, (0, 0, 255), 2)
-        #     cv2.circle(draw_image, center, 10, (0, 0, 255), -1)
-        #     cv2.putText(mask_red_with_contours, f'{area:.2f}', tuple(contour[0][0]), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+        if draw:
+            cv2.drawContours(mask_red_with_contours, [contour], -1, (0, 0, 255), 2)
+            cv2.ellipse(mask_red_with_contours, ellipse, (0, 0, 255), 2)
+            cv2.circle(draw_image, center, 10, (0, 0, 255), -1)
+            cv2.putText(mask_red_with_contours, f'{area:.2f}', tuple(contour[0][0]), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
 
     for contour in contours_green:
         # Fit ellipse
@@ -121,11 +122,23 @@ def getDartPoints(image, draw = False):
         center = move_ellipse_center(ellipse, area)
         green_points.append(center)
 
-        # if draw:
-        #     cv2.drawContours(mask_green_with_contours, [contour], -1, (0, 255, 0), 2)
-        #     cv2.ellipse(mask_green_with_contours, ellipse, (0, 255, 0), 2)
-        #     cv2.circle(draw_image, center, 10, (0, 255, 0), -1)
-        #     cv2.putText(mask_green_with_contours, f'{area:.2f}', tuple(contour[0][0]), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+        if draw:
+            cv2.drawContours(mask_green_with_contours, [contour], -1, (0, 255, 0), 2)
+            cv2.ellipse(mask_green_with_contours, ellipse, (0, 255, 0), 2)
+            cv2.circle(draw_image, center, 10, (0, 255, 0), -1)
+            cv2.putText(mask_green_with_contours, f'{area:.2f}', tuple(contour[0][0]), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+
+    stacked_image = np.concatenate((mask_green_with_contours, mask_red_with_contours), axis = 1)
+    cv2.line(stacked_image, (1000, 0), (1000, 1000), (255, 255, 255), 5, 1)
+    cv2.imshow('contours', stacked_image)
+    path = os.path.join('algo_illustrations', 'contours_ellipses')
+    # cv2.imwrite(path, stacked_image)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+    cv2.waitKey(1)
+    cv2.waitKey(1)
+    cv2.waitKey(1)
+    cv2.waitKey(1)
 
     return {'green':green_points, 'red':red_points}
 
