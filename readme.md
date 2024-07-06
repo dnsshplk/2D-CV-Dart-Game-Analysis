@@ -1,4 +1,5 @@
-Task 3 - 2D computer vision - Darts game analysis
+# 2D Computer Vision - Darts game analysis
+Given images of dart boards, count points and determine the winner
 
 # Algorithm
 The main idea of the algorithm is to find the center of the dartboard and the tips of darts pieces. Then after calculating the respective distances we can determine ho many points each dart piece scores
